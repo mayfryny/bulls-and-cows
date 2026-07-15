@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+
+<html lang="uk">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+    <title>Бики і корови</title>
+
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+
+<body>
+
+    <main class="app">
+
+        <header class="app-header">
+
+            <div>
+
+                <p class="eyebrow">Гра з друзями</p>
+
+                <h1>Бики і корови</h1>
+
+            </div>
+
+            <button id="resetGameButton" class="icon-button" type="button">
+
+                Нова гра
+
+            </button>
+
+        </header>
+
+        <section class="card digits-card">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <h2>Мої нотатки</h2>
+
+                    <p>Натискай на цифру, щоб змінити її стан.</p>
+
+                </div>
+
+            </div>
+
+            <div id="digitNotes" class="digit-notes" aria-label="Нотатки про цифри">
+
+                <button class="digit-note" type="button" data-digit="0">0</button>
+
+                <button class="digit-note" type="button" data-digit="1">1</button>
+
+                <button class="digit-note" type="button" data-digit="2">2</button>
+
+                <button class="digit-note" type="button" data-digit="3">3</button>
+
+                <button class="digit-note" type="button" data-digit="4">4</button>
+
+                <button class="digit-note" type="button" data-digit="5">5</button>
+
+                <button class="digit-note" type="button" data-digit="6">6</button>
+
+                <button class="digit-note" type="button" data-digit="7">7</button>
+
+                <button class="digit-note" type="button" data-digit="8">8</button>
+
+                <button class="digit-note" type="button" data-digit="9">9</button>
+
+            </div>
+
+            <div class="legend">
+
+                <span><i class="legend-mark neutral"></i> Невідомо</span>
+
+                <span><i class="legend-mark included"></i> Цифра є</span>
+
+                <span><i class="legend-mark possible"></i> Можливо є</span>
+
+                <span><i class="legend-mark excluded"></i> Цифри немає</span>
+
+            </div>
+
+        </section>
+
+        <section class="card">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <h2>Я вгадую число противника</h2>
+
+                </div>
+
+            </div>
+
+            <form id="myAttemptForm">
+
+                <div class="field-group">
+
+                    <label for="myAttempt">Моя спроба</label>
+
+                    <input id="myAttempt" type="text" inputmode="numeric" autocomplete="off" maxlength="4"
+                        placeholder="Введи свій варіант">
+
+                </div>
+
+                <div class="score-fields">
+
+                    <div class="field-group">
+
+                        <label for="myBulls">Бики</label>
+
+                        <select id="myBulls">
+
+                            <option value="0">0</option>
+
+                            <option value="1">1</option>
+
+                            <option value="2">2</option>
+
+                            <option value="3">3</option>
+
+                            <option value="4">4</option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="field-group">
+
+                        <label for="myCows">Корови</label>
+
+                        <select id="myCows">
+
+                            <option value="0">0</option>
+
+                            <option value="1">1</option>
+
+                            <option value="2">2</option>
+
+                            <option value="3">3</option>
+
+                            <option value="4">4</option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+                <p id="myAttemptError" class="error-message" aria-live="polite"></p>
+
+                <button class="primary-button full-width" type="submit">
+
+                    Додати спробу
+
+                </button>
+
+            </form>
+
+            <div class="history">
+
+                <h3>Мої спроби</h3>
+
+                <div id="myHistoryEmpty" class="empty-state">
+
+                    Тут з’являться твої варіанти.
+
+                </div>
+
+                <div id="myHistory" class="history-list"></div>
+
+            </div>
+
+        </section>
+        <section class="card">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <h2>Противник вгадує моє число</h2>
+
+                </div>
+
+            </div>
+
+            <div class="field-group">
+
+                <label for="secretNumber">Моє секретне число</label>
+
+                <div class="input-with-button">
+
+                    <input id="secretNumber" type="password" inputmode="numeric" autocomplete="off" maxlength="4"
+                        placeholder="Наприклад, 5831">
+
+                    <button id="toggleSecretButton" class="secondary-button" type="button"
+                        aria-label="Показати або приховати секретне число">
+
+                        Показати
+
+                    </button>
+
+                </div>
+
+                <p class="field-hint">4 різні цифри.</p>
+
+                <p id="secretError" class="error-message" aria-live="polite"></p>
+
+            </div>
+
+            <form id="opponentAttemptForm">
+
+                <div class="field-group">
+
+                    <label for="opponentAttempt">Варіант противника</label>
+
+                    <input id="opponentAttempt" type="text" inputmode="numeric" autocomplete="off" maxlength="4"
+                        placeholder="Введи його спробу">
+
+                    <p id="opponentError" class="error-message" aria-live="polite"></p>
+
+                </div>
+
+                <button class="primary-button full-width" type="submit">
+
+                    Порахувати результат
+
+                </button>
+
+            </form>
+
+            <div id="calculatedResult" class="result-box hidden" aria-live="polite">
+
+                <span id="calculatedBulls">0 биків</span>
+
+                <span class="result-divider">·</span>
+
+                <span id="calculatedCows">0 корів</span>
+
+            </div>
+
+            <div class="history">
+
+                <h3>Спроби противника</h3>
+
+                <div id="opponentHistoryEmpty" class="empty-state">
+
+                    Тут з’являться варіанти противника.
+
+                </div>
+
+                <div id="opponentHistory" class="history-list"></div>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+    <dialog id="resetDialog">
+
+        <form method="dialog" class="dialog-content">
+
+            <h2>Почати нову гру?</h2>
+
+            <p>Усі числа, спроби й нотатки буде видалено.</p>
+
+            <div class="dialog-actions">
+
+                <button class="secondary-button" value="cancel">
+
+                    Скасувати
+
+                </button>
+
+                <button id="confirmResetButton" class="danger-button" value="confirm">
+
+                    Очистити
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </dialog>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
