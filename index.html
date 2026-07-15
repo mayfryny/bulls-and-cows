@@ -19,21 +19,49 @@
     <main class="app">
 
         <header class="app-header">
-
             <div>
-
                 <p class="eyebrow">Гра з друзями</p>
-
                 <h1>Бики і корови</h1>
-
             </div>
 
-            <button id="resetGameButton" class="icon-button" type="button">
+            <div class="header-actions">
+                <button id="themeButton" class="icon-button theme-button" type="button" aria-label="Змінити тему"
+                    aria-expanded="false">
+                    🌿
+                </button>
 
-                Нова гра
+                <button id="resetGameButton" class="icon-button" type="button">
+                    Нова гра
+                </button>
+            </div>
+        </header>
 
+        <div id="themeMenu" class="theme-menu hidden" aria-label="Вибір теми">
+            <button class="theme-option active" type="button" data-theme="forest">
+                <span class="theme-icon">🌿</span>
+                <span>Forest</span>
             </button>
 
+            <button class="theme-option" type="button" data-theme="lavender">
+                <span class="theme-icon">💜</span>
+                <span>Lavender</span>
+            </button>
+
+            <button class="theme-option" type="button" data-theme="paper">
+                <span class="theme-icon">📄</span>
+                <span>Paper</span>
+            </button>
+
+            <button class="theme-option" type="button" data-theme="apple">
+                <span class="theme-icon">🍎</span>
+                <span>Apple</span>
+            </button>
+
+            <button class="theme-option" type="button" data-theme="dark">
+                <span class="theme-icon">🌙</span>
+                <span>Dark</span>
+            </button>
+        </div>
         </header>
 
         <section class="card digits-card">

@@ -28,6 +28,105 @@ const resetGameButton = document.querySelector("#resetGameButton");
 const resetDialog = document.querySelector("#resetDialog");
 const confirmResetButton = document.querySelector("#confirmResetButton");
 
+const themeButton = document.querySelector("#themeButton");
+
+const themeMenu = document.querySelector("#themeMenu");
+
+const themeOptions = document.querySelectorAll(".theme-option");
+const themes = {
+
+    forest: {
+
+        icon: "🌿",
+
+        name: "Forest"
+
+    },
+
+    lavender: {
+
+        icon: "💜",
+
+        name: "Lavender"
+
+    },
+
+    paper: {
+
+        icon: "📄",
+
+        name: "Paper"
+
+    },
+
+    apple: {
+
+        icon: "🍎",
+
+        name: "Apple"
+
+    },
+
+    dark: {
+
+        icon: "🌙",
+
+        name: "Dark"
+
+    }
+
+};
+
+function applyTheme(themeName) {
+    const selectedTheme = themes[themeName];
+
+    if (!selectedTheme) {
+        return;
+    }
+
+    document.body.dataset.theme = themeName;
+
+    themeButton.textContent = selectedTheme.icon;
+    themeButton.setAttribute(
+        "aria-label",
+        `Поточна тема: ${selectedTheme.name}. Змінити тему`
+    );
+
+    themeOptions.forEach((option) => {
+        const isSelected = option.dataset.theme === themeName;
+
+        option.classList.toggle("active", isSelected);
+        option.setAttribute("aria-pressed", String(isSelected));
+    });
+}
+
+themeButton.addEventListener("click", () => {
+    const isHidden = themeMenu.classList.toggle("hidden");
+
+    themeButton.setAttribute("aria-expanded", String(!isHidden));
+});
+
+themeOptions.forEach((option) => {
+    option.addEventListener("click", () => {
+        const selectedTheme = option.dataset.theme;
+
+        applyTheme(selectedTheme);
+
+        themeMenu.classList.add("hidden");
+        themeButton.setAttribute("aria-expanded", "false");
+    });
+});
+
+document.addEventListener("click", (event) => {
+    const clickedInsideMenu = themeMenu.contains(event.target);
+    const clickedThemeButton = themeButton.contains(event.target);
+
+    if (!clickedInsideMenu && !clickedThemeButton) {
+        themeMenu.classList.add("hidden");
+        themeButton.setAttribute("aria-expanded", "false");
+    }
+});
+
 function keepOnlyDigits(event) {
     event.target.value = event.target.value.replace(/\D/g, "").slice(0, 4);
 }
@@ -259,3 +358,4 @@ function resetGame() {
         digitButton.classList.remove("included", "excluded");
     });
 }
+applyTheme("forest");
